@@ -8,10 +8,10 @@
 #
 
 # Tells the ohai cookbook to tell the chef-client cookbook to set the Ohai::Config[:plugin_path] in the node's client.rb
-default.node['ohai']['plugin_path'] = "/etc/chef/ohai_plugins"
+default['ohai']['plugin_path'] = "/etc/chef/ohai_plugins"
 
 # Tells the ohai cookbook to use the plugins in this cookbook as the source for the plugins to install
-default.node['ohai']['plugins']['rm_ohai'] = "plugins"
+default['ohai']['plugins']['rm_ohai'] = "plugins"
 
 cookbook_file "#{node['ohai']['plugin_path']}/rm_ohai_ipaddress.rb" do
   source 'rm_ohai_ipaddress.rb'
