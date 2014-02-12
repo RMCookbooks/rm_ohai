@@ -21,4 +21,4 @@ cookbook_file "#{node['ohai']['plugin_path']}/rm_ohai_ipaddress.rb" do
 end
 
 include_recipe 'ohai::default'
-include_recipe 'chef-client::config'
+# include_recipe 'chef-client::config'
