@@ -8,17 +8,22 @@
 #
 
 # Tells the ohai cookbook to tell the chef-client cookbook to set the Ohai::Config[:plugin_path] in the node's client.rb
-node.default['ohai']['plugin_path'] = "/etc/chef/ohai_plugins"
+# node.default['ohai']['plugin_path'] = "/etc/chef/ohai_plugins"
 
 # Tells the ohai cookbook to use the plugins in this cookbook as the source for the plugins to install
-node.default['ohai']['plugins']['rm_ohai'] = "plugins"
+# node.default['ohai']['plugins']['rm_ohai'] = "plugins"
+
+ohai 'reload_nginx' do
+    plugin 'nginx'
+      action :nothing
+end
 
 cookbook_file "#{node['ohai']['plugin_path']}/rm_ohai_ipaddress.rb" do
   source 'plugins/rm_ohai_ipaddress.rb'
   owner  'root'
   group  'root'
   mode   '0755'
+  notifies :reload, 'ohai[reload_nginx]', :immediately
 end
 
 include_recipe 'ohai::default'
-include_recipe 'chef-client::config'
